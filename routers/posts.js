@@ -25,10 +25,7 @@ router.patch("/:id", postController.modify);
 
 // DESTROY
 
-router.delete("/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  res.json("elimino il post " + id);
-});
+router.delete("/:id", postController.destroy);
 
 // esporto
 

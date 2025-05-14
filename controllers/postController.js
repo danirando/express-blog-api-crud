@@ -1,3 +1,4 @@
+const { log } = require("console");
 const { posts } = require("../db");
 
 // INDEX
@@ -48,4 +49,22 @@ const modify = (req, res) => {
   res.json("modifico un post");
 };
 
-module.exports = { index, show, store, update, modify };
+// DESTROY
+
+const destroy = (req, res) => {
+  const postId = parseInt(req.params.id);
+
+  const post = posts.find((post) => post.id === postId);
+
+  if (!post) {
+    return res
+      .status(404)
+      .json({ error: "404 not found", message: "Post non trovato" });
+  }
+
+  posts.splice(posts.indexOf(post), 1);
+
+  res.sendStatus(204);
+};
+
+module.exports = { index, show, store, update, modify, destroy };
