@@ -1,39 +1,27 @@
 const express = require("express");
 const router = express.Router();
 
-const { posts } = require("../db");
+const postController = require("../controllers/postController");
 
 // INDEX
 
-router.get("", (req, res) => {
-  res.json({ posts });
-});
+router.get("", postController.index);
 
 // SHOW
 
-router.get("/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
-  res.json(post);
-});
+router.get("/:id", postController.show);
 
 // STORE
 
-router.post("", (req, res) => {
-  res.json("Creo nuovo post");
-});
+router.post("", postController.store);
 
 // UPDATE
 
-router.put("/:id", (req, res) => {
-  res.json("sostituisco un post");
-});
+router.put("/:id", postController.update);
 
 // MODIFY
 
-router.patch("/:id", (req, res) => {
-  res.json("modifico un post");
-});
+router.patch("/:id", postController.modify);
 
 // DESTROY
 
