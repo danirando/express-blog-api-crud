@@ -44,6 +44,25 @@ const store = (req, res) => {
 
   const newPost = { id: postId, title, content, image, tags };
 
+  let isRequestMalformed = false;
+
+  if (!title || typeof title !== "string" || title.length < 3)
+    isRequestMalformed = true;
+
+  if (typeof content !== "string") isRequestMalformed = true;
+
+  if (typeof image !== "string") isRequestMalformed = true;
+
+  if (!Array.isArray(tags)) isRequestMalformed = true;
+
+  if (isRequestMalformed) {
+    res.status(404).json({
+      error: "400 bad request",
+      message: "Request is malformed",
+    });
+    return;
+  }
+
   posts.push(newPost);
 
   res.status(201).json(newPost);
